@@ -1,0 +1,26 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>User Profile</title>
+</head>
+
+<body>
+  <h1>User Profile</h1>
+  <p>Username: {{user.username}}</p>
+  <p>Email: {{user.email}}</p>
+  <p>Joined at: {{user.createdAt}}</p>
+
+  <h2>Posts:</h2>
+  {{#if user.posts.length}}
+    <ul>
+      {{#each user.posts}}
+        <li>{{this.title}}</li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No posts available.</p>
+  {{/if}}
+</body>
+
+</html>

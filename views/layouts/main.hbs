@@ -1,0 +1,31 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tech Talk</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-left">
+        <a href="/">Home</a>
+        {{#if isAuthenticated}}
+          <a href="/dashboard">Dashboard</a>
+          <a href="/logout">Logout</a>
+        {{else}}
+          <a href="/login">Login</a>
+        {{/if}}
+      </div>
+      <div class="navbar-right">
+        <a href="/">The Tech Talk</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {{{body}}}
+  </div>
+</body>
+
+</html>

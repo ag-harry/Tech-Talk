@@ -1,0 +1,99 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tech Talk</title>
+  <link rel="stylesheet" href="../public/css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <h1>The Tech Talk</h1>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-left">
+        <a href="/">Home</a>
+        {{#if isAuthenticated}}
+          <a href="/signup">Signup!</a>
+          <a href="/logout">Logout</a>
+        {{else}}
+          <a href="/login">Login</a>
+        {{/if}}
+      </div>
+    </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Welcome!</h2>
+    <p>This is the home page content.</p>
+  </div>
+
+  <!-- Add a container for the posts here -->
+  <div class="container">
+    <div class="post-container">
+      <!-- Posts will be appended here by the script below -->
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 The Tech Talk. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Put the code from your index.js file here
+    // Handle fetching existing blog posts and rendering them dynamically on the homepage
+    async function fetchPosts() {
+      try {
+        const response = await fetch('/api/posts');
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        const posts = await response.json();
+        renderPosts(posts);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function renderPosts(posts) {
+      const postContainer = document.querySelector('.post-container');
+      if (posts.length === 0) {
+        postContainer.innerHTML = '<p>No blog posts available.</p>';
+      } else {
+        postContainer.innerHTML = '';
+        posts.forEach((post) => {
+          const postCard = createPostCard(post);
+          postContainer.appendChild(postCard);
+        });
+      }
+    }
+
+    function createPostCard(post) {
+      const postCard = document.createElement('div');
+      postCard.classList.add('post-card');
+
+      const postTitle = document.createElement('h2');
+      postTitle.textContent = post.title;
+
+      const postContent = document.createElement('p');
+      postContent.textContent = post.content;
+
+      postCard.appendChild(postTitle);
+      postCard.appendChild(postContent);
+
+      return postCard;
+    }
+
+    // Call the fetchPosts function
+    fetchPosts();
+  </script>
+</body>
+
+</html>
